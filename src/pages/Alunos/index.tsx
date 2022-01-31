@@ -9,7 +9,6 @@ import { AiFillDelete } from 'react-icons/ai';
 
 import Cadastro from '../../components/PopUpCadastro';
 import Atualizar from '../../components/PopUpAtualizar';
-import Chamada from '../../components/PopUpChamada';
 
 import { errorfulNotify } from '../../hooks/SystemToasts';
 
@@ -24,7 +23,7 @@ interface IAlunos {
 const Alunos: React.FC = () => {
   const [alunos, setAlunos] = useState<IAlunos[]>([]);
 
-  async function handleAlunos() {
+  const handleAlunos = async() => {
     try {
       await api.get<IAlunos[]>(`alunos`)
       .then((response => {
@@ -55,7 +54,7 @@ const Alunos: React.FC = () => {
       <Bg>
         <Container>
           <div id="menu">
-            <Link to={"home"}>
+            <Link to={"/"}>
               <button>Voltar</button>
             </Link>
             <h1>Alunos</h1>
@@ -78,7 +77,7 @@ const Alunos: React.FC = () => {
             {
               alunos && alunos.length ?
                 alunos.map((aluno) => (
-                  <div id="lista">
+                  <div id="lista" key={aluno.matricula}>
                     <p>{aluno.matricula}</p>
                     <p>{aluno.nome}</p>
                     <p>{aluno.nascimento}</p>
