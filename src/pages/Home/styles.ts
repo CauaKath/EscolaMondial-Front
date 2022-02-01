@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+/**
+ * Estilização da tela de início
+ */
+
 export const Bg = styled.div`
   width: 100vw;
   height: 100vh;

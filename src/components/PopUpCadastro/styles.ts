@@ -3,6 +3,10 @@ import { shade } from 'polished';
 
 import Close from '../../assets/close.svg';
 
+/**
+ * Estilização do PopUp de cadastro de novos alunos
+ */
+
 export const Container = styled.div`
     display: flex;
     align-items: center;

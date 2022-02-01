@@ -2,6 +2,10 @@ import { createGlobalStyle } from 'styled-components';
 
 import wallpaper from "../assets/wallpaper.jpg";
 
+/**
+ * Configuração de estilização global
+ */
+
 export default createGlobalStyle`
   * {
     margin: 0;

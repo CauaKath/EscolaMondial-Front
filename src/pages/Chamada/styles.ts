@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
 
+/**
+ * Estilização da tela de chamada
+ */
 
 export const Bg = styled.div`
   width: 100vw;

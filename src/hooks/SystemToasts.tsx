@@ -1,6 +1,10 @@
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+/**
+ * Classe de configuração da biblioteca de toasts
+ */
+
 toast.configure();
 
 const tempo = 10000;
@@ -11,12 +15,4 @@ export const successfulNotify = (mensagem: string) => {
 
 export const errorfulNotify = (mensagem: string) => {
   toast.error(mensagem, {autoClose: tempo});
-}
-
-export const warnNotify = (mensagem: string) => {
-  toast.warn(mensagem, {autoClose: tempo});
-}
-
-export const infoNotify = (mensagem: string) => {
-  toast.info(mensagem, {autoClose: tempo});
 }

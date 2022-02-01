@@ -6,6 +6,10 @@ import { errorfulNotify, successfulNotify } from '../../hooks/SystemToasts';
 
 import api from '../../services/api';
 
+/**
+ * PopUp de cadastro de novos alunos
+ */
+
 interface IAluno {
   matricula: number;
   nome: string;

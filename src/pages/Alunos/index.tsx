@@ -14,6 +14,10 @@ import { errorfulNotify } from '../../hooks/SystemToasts';
 
 import api from '../../services/api';
 
+/**
+ * Tela de Listagem de alunos com CRUD completo
+ */
+
 interface IAlunos {
   matricula: number;
   nome: string;

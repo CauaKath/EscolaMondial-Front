@@ -8,6 +8,10 @@ import { errorfulNotify } from '../../hooks/SystemToasts';
 
 import api from '../../services/api';
 
+/**
+ * Tela para realizar chamada dos alunos
+ */
+
 interface IAlunos {
   matricula: number;
   nome: string;

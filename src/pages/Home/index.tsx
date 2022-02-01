@@ -5,6 +5,10 @@ import { Bg, Container, Header, Banner, Content } from './styles';
 
 import banner from "../../assets/banner.jpg";
 
+/**
+ * Tela de início da escola
+ */
+
 const Home: React.FC = () => {
   return (
     <>

@@ -3,6 +3,10 @@ import { shade } from 'polished';
 
 import Popup from 'reactjs-popup';
 
+/**
+ * Estilização da tela de Alunos
+ */
+
 export const Bg = styled.div`
   width: 100vw;
   height: 100vh;
