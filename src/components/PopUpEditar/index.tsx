@@ -27,7 +27,7 @@ let aluno: IAluno = {
   nascimento: ""
 }
 
-const Atualizar: React.FC<IPopupVerbaAtualizar> = ({ fechar, matricula }) => {
+const Editar: React.FC<IPopupVerbaAtualizar> = ({ fechar, matricula }) => {
   const [alunoBD, setAlunoBD] = useState<IAluno>();
 
   const handleNome = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,22 +50,24 @@ const Atualizar: React.FC<IPopupVerbaAtualizar> = ({ fechar, matricula }) => {
     try {
       await api.get<IAluno>(`alunos/${matricula}`)
       .then((response => setAlunoBD(response.data)))
-      .catch(() => errorfulNotify("Não foi possível encontrar o aluno."));
     } catch(e) {
       console.log(`Error: ${e}`);
       errorfulNotify("Erro ao buscar aluno.");
     }
   }
 
+  function setInfoAluno() {
+    aluno.matricula ? '' : aluno.matricula = alunoBD ? alunoBD.matricula : 0;
+    aluno.nome ? '' : aluno.nome = alunoBD ? alunoBD.nome : '';
+    aluno.nascimento ? '' : aluno.nascimento = alunoBD ? alunoBD.nascimento : '';
+  }
+
   async function editarAluno() {
     try {
-      aluno.matricula ? '' : aluno.matricula = alunoBD ? alunoBD.matricula : 0;
-      aluno.nome ? '' : aluno.nome = alunoBD ? alunoBD.nome : '';
-      aluno.nascimento ? '' : aluno.nascimento = alunoBD ? alunoBD.nascimento : '';
+      setInfoAluno();
 
       await api.put<IAluno>(`alunos/${matricula}`, aluno)
       .then(() => successfulNotify("Aluno editado com sucesso"))
-      .catch((error) => errorfulNotify(error.response.data.titulo));
 
       fechar();
     } catch(e) {
@@ -107,4 +109,4 @@ const Atualizar: React.FC<IPopupVerbaAtualizar> = ({ fechar, matricula }) => {
   );
 }
 
-export default Atualizar;
+export default Editar;

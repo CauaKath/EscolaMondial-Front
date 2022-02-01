@@ -8,9 +8,9 @@ import { BiEdit } from 'react-icons/bi';
 import { AiFillDelete } from 'react-icons/ai';
 
 import Cadastro from '../../components/PopUpCadastro';
-import Atualizar from '../../components/PopUpAtualizar';
+import Editar from '../../components/PopUpEditar';
 
-import { errorfulNotify } from '../../hooks/SystemToasts';
+import { errorfulNotify, successfulNotify } from '../../hooks/SystemToasts';
 
 import api from '../../services/api';
 
@@ -32,9 +32,10 @@ const Alunos: React.FC = () => {
       await api.get<IAlunos[]>(`alunos`)
       .then((response => {
         setAlunos(response.data); 
-      })).catch(() => errorfulNotify("Não foi possível encontrar os alunos."));
+      }))
     } catch(e) {
-      console.log(e);
+      console.log(`Error: ${e}`);
+      errorfulNotify("Erro ao buscar alunos");
     }
   }
 
@@ -46,10 +47,12 @@ const Alunos: React.FC = () => {
     try {
       await api.delete<IAlunos[]>(`alunos/${matricula}`)
       .then((response => {
-        setAlunos(response.data); 
-      })).catch(() => errorfulNotify("Não foi possível deletar o aluno."));
+        setAlunos(response.data);
+        successfulNotify("Aluno removido com sucesso");
+      }));
     } catch(e) {
-      console.log(e);
+      console.log(`Error: ${e}`);
+      errorfulNotify("Erro ao remover aluno");
     }
   }
 
@@ -87,7 +90,7 @@ const Alunos: React.FC = () => {
                     <p>{aluno.nascimento}</p>
                     <PopupModal closeOnEscape trigger={<button><BiEdit size={25} id={"edit"} /></button>} modal>
                       {(close: any) => (
-                        <Atualizar fechar={close} matricula={aluno.matricula} />
+                        <Editar fechar={close} matricula={aluno.matricula} />
                       )}
                     </PopupModal>
                     <button><AiFillDelete size={25} onClick={() => deletarAluno(aluno.matricula)}/></button>

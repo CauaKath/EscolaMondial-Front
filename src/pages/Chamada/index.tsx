@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 
 import { Container, Lista, Bg  } from './styles'
 
-import { errorfulNotify } from '../../hooks/SystemToasts';
+import { errorfulNotify, successfulNotify } from '../../hooks/SystemToasts';
 
 import api from '../../services/api';
+import { waitFor } from '@testing-library/react';
 
 /**
  * Tela para realizar chamada dos alunos
@@ -22,7 +23,7 @@ interface IChamada {
   status: boolean;
 }
 
-let chamada = [
+var chamada = [
   {
     nome: "",
     status: false
@@ -32,21 +33,30 @@ let chamada = [
 const Chamada: React.FC = () => {
   const [alunos, setAlunos] = useState<IAlunos[]>([]);
 
+  window.onload = function resetarArray() {
+    for (let i = 0; i < chamada.length; i ++) {
+      chamada.pop();
+    }
+  }
+
   const handleAlunos = async() => {
     try {
       await api.get<IAlunos[]>(`alunos`)
       .then((response) => {
         setAlunos(response.data);
 
-        chamada.pop();
+        if (chamada.length === 1) {
+          chamada.pop();
 
-        response.data.map(aluno => chamada.push({
-          nome: aluno.nome,
-          status: false
-        }))})
-      .catch(() => errorfulNotify("Não foi possível encontrar os alunos."));
+          response.data.map(aluno => chamada.push({
+            nome: aluno.nome,
+            status: false
+          }))}
+        }
+      )
     } catch(e) {
-      console.log(e);
+      console.log(`Error: ${e}`);
+      errorfulNotify("Erro ao buscar alunos!");
     }
   }
 
@@ -56,9 +66,15 @@ const Chamada: React.FC = () => {
 
   const enviarChamada = async() => {
     try {
-      await api.put<IChamada[]>(`chamadas`, chamada);
+      await api.put<IChamada[]>(`chamadas`, chamada)
+      .then(() => successfulNotify("Chamada enviada com sucesso!"));
+
+      setTimeout(function(){ 
+        location.reload();
+      }, 3000);
     } catch(e) {
-      console.log(e);
+      console.log(`Error: ${e}`);
+      errorfulNotify("Erro ao enviar chamada!");
     }
   }
 
@@ -84,7 +100,7 @@ const Chamada: React.FC = () => {
                     <p>{aluno.nome}</p>
                     <input type="checkbox" name="true" id={`true${index}`} onChange={() => {
                       for (let i = 0; i < chamada.length; i ++) {
-                        if (chamada[i].nome === aluno.nome) {
+                        if (aluno.nome === chamada[i].nome) {
                           chamada[i].status = !chamada[i].status;
 
                           return;

@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 toast.configure();
 
-const tempo = 10000;
+const tempo = 3000;
 
 export const successfulNotify = (mensagem: string) => {
   toast.success(mensagem, {autoClose: tempo});
