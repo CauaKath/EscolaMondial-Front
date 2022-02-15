@@ -7,7 +7,6 @@ import { Container, Lista, Bg  } from './styles'
 import { errorfulNotify, successfulNotify } from '../../hooks/SystemToasts';
 
 import api from '../../services/api';
-import { waitFor } from '@testing-library/react';
 
 /**
  * Tela para realizar chamada dos alunos

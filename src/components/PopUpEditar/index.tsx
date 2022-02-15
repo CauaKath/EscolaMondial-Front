@@ -67,9 +67,11 @@ const Editar: React.FC<IPopupVerbaAtualizar> = ({ fechar, matricula }) => {
       setInfoAluno();
 
       await api.put<IAluno>(`alunos/${matricula}`, aluno)
-      .then(() => successfulNotify("Aluno editado com sucesso"))
-
-      fechar();
+      .then(() => {
+        successfulNotify("Aluno editado com sucesso");
+        fechar();
+      })
+      .catch((error) => errorfulNotify(error.response.data.titulo));
     } catch(e) {
       console.log(`Error: ${e}`);
       errorfulNotify('Erro ao editar aluno');
